@@ -3,7 +3,10 @@
 --
 -- Add any additional autocmds here
 vim.api.nvim_del_augroup_by_name("lazyvim_wrap_spell")
--- with `vim.api.nvim_create_autocmd`
---
--- Or remove existing autocmds by their group name (which is prefixed with `lazyvim_` for the defaults)
--- e.g. vim.api.nvim_del_augroup_by_name("lazyvim_wrap_spell")
+
+-- 退出时静默通知，避免 taplo LSP shutdown 的 NO_RESULT_CALLBACK_FOUND 闪现报错
+vim.api.nvim_create_autocmd("VimLeavePre", {
+  callback = function()
+    vim.notify = function() end
+  end,
+})
